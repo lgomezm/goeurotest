@@ -30,7 +30,7 @@ public class GoEuroTest {
 		try {
 			JsonArray array = reader.getLocationsAsJson(cityName);
 			List<Location> locations = parser.parse(array);
-			writer.write(locations);
+			writer.write(cityName, locations);
 		} catch (GoEuroException e) {
 			System.out.println(e.getMessage());
 		}
