@@ -16,11 +16,19 @@ import de.goeuro.vo.Location;
 public class GoEuroTest {
 
 	public static void main(String[] args) {
+		if (args.length == 0) {
+			System.out.println("Error: Please provide a city name");
+		} else {
+			queryLocations(args[0]);			
+		}
+	}
+
+	private static void queryLocations(String cityName) {
 		LocationReader reader = new LocationJsonReader();
 		LocationParser parser = new LocationParserImpl();
 		LocationWriter writer = new LocationCSVWriter();
 		try {
-			JsonArray array = reader.getLocationsAsJson("Berlin");
+			JsonArray array = reader.getLocationsAsJson(cityName);
 			List<Location> locations = parser.parse(array);
 			writer.write(locations);
 		} catch (GoEuroException e) {
