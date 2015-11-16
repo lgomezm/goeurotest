@@ -12,7 +12,7 @@ import de.goeuro.vo.Location;
 public class LocationCSVWriter implements LocationWriter {
 
 	@Override
-	public void write(String cityName, List<Location> locations) throws GoEuroException {
+	public String write(String cityName, List<Location> locations) throws GoEuroException {
 		String filename = createFileName(cityName);
 		try (PrintWriter writer = new PrintWriter(filename, "UTF-8")) {
 			for (Location location : locations) {
@@ -21,6 +21,7 @@ public class LocationCSVWriter implements LocationWriter {
 						location.getType(), location.getLatitude(), 
 						location.getLongitude()));
 			}
+			return filename;
 		} catch (FileNotFoundException e) {
 			throw new GoEuroException("The file could not be created");
 		} catch (UnsupportedEncodingException e) {

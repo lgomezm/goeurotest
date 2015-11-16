@@ -17,7 +17,7 @@ public class GoEuroTest {
 
 	public static void main(String[] args) {
 		if (args.length == 0) {
-			System.out.println("Error: Please provide a city name");
+			System.err.println("Error: Please provide a city name");
 		} else {
 			queryLocations(args[0]);			
 		}
@@ -30,9 +30,16 @@ public class GoEuroTest {
 		try {
 			JsonArray array = reader.getLocationsAsJson(cityName);
 			List<Location> locations = parser.parse(array);
-			writer.write(cityName, locations);
+			int locationsCount = locations.size();
+			if (locationsCount > 0) {
+				String filename = writer.write(cityName, locations);
+				System.out.println(String.format("%d results found, exported on %s",
+						locationsCount, filename));
+			} else {
+				System.out.println("No location found. No output file generated");
+			}
 		} catch (GoEuroException e) {
-			System.out.println(e.getMessage());
+			System.err.println("Error: " + e.getMessage());
 		}
 	}
 }

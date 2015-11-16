@@ -12,7 +12,8 @@ public interface LocationWriter {
 	 * 
 	 * @param cityName City name the query was issued for.
 	 * @param locations List of locations to write.
+	 * @return Name of the file created.
 	 * @throws If there is an I/O error processing the output.
 	 */
-	void write(String cityName, List<Location> locations) throws GoEuroException;
+	String write(String cityName, List<Location> locations) throws GoEuroException;
 }
